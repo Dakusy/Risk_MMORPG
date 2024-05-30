@@ -3,11 +3,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/risk-game', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        });
+        await mongoose.connect('mongodb://localhost:27017/Risk');
         console.log('MongoDB Connected...');
     } catch (err) {
         console.error(err.message);

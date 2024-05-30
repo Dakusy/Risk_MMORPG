@@ -1,20 +1,23 @@
-// src/App.js
+// App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
-import Game from './components/Game';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ForgotPasswordPage from './pages/ForgotPassPage';
+import Game from './pages/GamePage';
 
-function App() {
+const App = () => {
     return (
         <Router>
-            <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
-                <Route path="/" component={Game} />
-            </Switch>
+            <Routes>
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/game" element={<Game />} />
+            </Routes>
         </Router>
     );
-}
+};
 
 export default App;

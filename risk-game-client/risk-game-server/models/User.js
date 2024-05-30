@@ -1,9 +1,9 @@
-// risk-game-server/models/User.js
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
     username: {
-        type: String,
+        type:String,
         required: true,
         unique: true
     },
@@ -15,11 +15,14 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { collection: 'Users' });
 
-module.exports = mongoose.model('user', UserSchema);
+// Méthode pour comparer le mot de passe
+UserSchema.methods.comparePassword = function(candidatePassword) {
+    // Comparaison du mot de passe fourni avec le mot de passe hashé stocké dans la base de données
+    return bcrypt.compare(candidatePassword, this.password);
+};
+
+
+module.exports = mongoose.model('User', UserSchema);
