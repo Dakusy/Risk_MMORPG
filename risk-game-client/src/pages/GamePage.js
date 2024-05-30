@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios'; // Importer Axios
 
+
 const Game = () => {
     const [username, setUsername] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
+
 
     useEffect(() => {
         const fetchUsername = async () => {
@@ -24,6 +27,25 @@ const Game = () => {
         fetchUsername();
     }, []);
 
+    const handleMenuClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+        // Clear local storage and redirect to login page
+        localStorage.removeItem('loggedInUser');
+        window.location.href = '/login';
+    };
+
+    const handleSettings = () => {
+        // Redirect to settings page
+        window.location.href = '/settings';
+    };
+
     return (
         <div>
             <AppBar position="static">
@@ -41,11 +63,29 @@ const Game = () => {
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
-                        // onClick={handleMenu}
+                        onClick={handleMenuClick}
                         sx={{ ml: 2 }}
                     >
                         <AccountCircleIcon />
                     </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleSettings}>Settings</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
             {/* Other components and game logic */}
