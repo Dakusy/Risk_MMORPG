@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import axios from 'axios'; // Importer Axios
-
+import axios from 'axios'; // Import Axios
+import CreateJoinGame from '../components/CreateJoinGame'; // Import the CreateJoinGame component
 
 const Game = () => {
     const [username, setUsername] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
-
 
     useEffect(() => {
         const fetchUsername = async () => {
@@ -87,9 +86,13 @@ const Game = () => {
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                 </Toolbar>
+
             </AppBar>
+            <CreateJoinGame />
+
             {/* Other components and game logic */}
         </div>
+        
     );
 };
 
